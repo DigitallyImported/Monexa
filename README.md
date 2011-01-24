@@ -26,7 +26,7 @@ Usage
 
 
 	require 'monexa'
-
+	
 	response = Monexa::Api.ping
 	puts response.success?
 	puts response.data[:version]
