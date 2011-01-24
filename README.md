@@ -19,13 +19,12 @@ Example configuration:
 	:office_id: "YOUR_OFFICE_ID"
 
 Usage
----
-
-- All api methods are dynamic via method_missing and accessible via the Monexa::Api class. The method name should be in pascal notation and will be automatically formatted.
-- Parameters are sent as a hash, and converted to monexa format automatically.
-
+----
 
 	require 'monexa'
 	response = Monexa::Api.ping
 	puts response.success?
 	puts response.data[:version]
+
+- All api methods are dynamic via method_missing and accessible via the Monexa::Api class. The method name should be in pascal notation and will be automatically formatted.
+- Parameters are sent as a hash, and converted to monexa format automatically.
