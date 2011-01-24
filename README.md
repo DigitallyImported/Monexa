@@ -3,7 +3,7 @@ monexa
 
 A ruby gem that interfaces with the Monexa XML API
 
-Monexa is a SaaS for subscription-based billing, see http://www.monexa.com for more details
+Monexa is a SaaS for subscription-based billing, see [http://www.monexa.com] for more details
 
 Setup
 -----
