@@ -5,12 +5,8 @@ A ruby gem that interfaces with the Monexa XML API
 
 Monexa is a SaaS for subscription-based billing, see http://www.monexa.com for more details
 
-Usage
-=====
-
 Setup
 -----
-
 Create a configuration file named 'monexa.yml' and place it in your config/ folder.
 The configuration file is automatically loaded for you and values are accessible via Monexa::config struct.
 
@@ -22,7 +18,7 @@ Example configuration:
 	:provider_id: "YOUR_PROVIDER_ID"
 	:office_id: "YOUR_OFFICE_ID"
 
-Use
+Usage
 ---
 
 - All api methods are dynamic via method_missing and accessible via the Monexa::Api class. The method name should be in pascal notation and will be automatically formatted.
