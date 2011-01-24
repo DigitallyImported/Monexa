@@ -3,7 +3,7 @@ monexa
 
 A ruby gem that interfaces with the Monexa XML API
 
-Monexa is a SaaS for subscription-based billing, see [http://www.monexa.com] for more details
+Monexa is a SaaS for subscription-based billing, see [monexa] for more details
 
 Setup
 -----
@@ -28,3 +28,5 @@ Usage
 
 - All api methods are dynamic via method_missing and accessible via the Monexa::Api class. The method name should be in pascal notation and will be automatically formatted.
 - Parameters are sent as a hash, and converted to monexa format automatically.
+
+[monexa]: http://www.monexa.com/
