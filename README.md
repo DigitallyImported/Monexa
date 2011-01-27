@@ -5,6 +5,11 @@ A ruby gem that interfaces with the Monexa XML API
 
 Monexa is a SaaS for subscription-based billing, see [Monexa] for more details
 
+Changelog
+---------
+
+v0.1 Initial release, basic API access
+
 Setup
 -----
 Create a configuration file named 'monexa.yml' and place it in your config/ folder.
