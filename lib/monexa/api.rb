@@ -3,8 +3,12 @@ module Monexa
     api_request :ping
   end
   
+  def self.list_permissions
+    api_request :list_permissions
+  end
+  
   def self.list_plans(type = 'full')
-    api_request :list_plans, {:provider_id => Monexa::config.provider[:id], :information_type => type}
+    api_request :list_plans, {:information_type => type, :provider_id => Monexa::config.provider_id}
   end
   
   def self.api_request(method, data = {})

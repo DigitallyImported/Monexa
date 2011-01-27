@@ -1,17 +1,25 @@
 require 'net/https'
 require 'uri'
+require 'yaml'
 
 module Monexa  
   class Request
     
     def initialize(command, data = {})
       @command = command.to_s.split('_').collect{|w| w.upcase}.join('_')
-      @data = data
-
       Monexa::log.info "API request: #{@command}"
+
+      begin
+        template = File.join(File.dirname(__FILE__), 'templates', "#{command.downcase}.yml")
+        Monexa::log.debug "Loading request template #{template}"
+        @data = reorder(data, YAML.load_file(template))
+      rescue
+        Monexa::log.debug 'Failed to load template.'
+        @data = data
+      end
       Monexa::log.debug "Request Args: #{(data.collect { |k, v| "#{k}=#{v}" }.join(','))}" if @data.length > 0
       
-      @xml = build_xml("<#{@command}>#{hash_to_xml(data)}</#{@command}>")
+      @xml = build_xml("<#{@command}>#{hash_to_xml(@data)}</#{@command}>")
       Monexa::log.debug @xml
     end
     
@@ -24,6 +32,19 @@ module Monexa
     end
     
     private
+    
+    def reorder(orig, template)
+      new_h = {}
+      template.each { |k, v|
+        next unless orig.has_key? k
+        if v.kind_of? Hash
+          new_h[k] = reorder(orig[k], template[k])
+        else
+          new_h[k] = orig[k]
+        end
+      }
+      new_h
+    end
     
     def do_post(api_url, data)
       Monexa::log.debug "POST to #{api_url}"
