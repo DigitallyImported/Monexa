@@ -1,3 +1,6 @@
+require 'net/https'
+require 'uri'
+
 module Monexa  
   class Request
     
@@ -15,12 +18,31 @@ module Monexa
     def to_s
       @xml
     end
-    
-    def to_str
-      to_s
+
+    def send
+      do_post(Monexa::config.url, @xml)
     end
     
     private
+    
+    def do_post(api_url, data)
+      Monexa::log.debug "POST to #{api_url}"
+    
+      url = URI.parse(api_url)
+    
+      req = Net::HTTP::Post.new(url.path)
+      req.body = data
+    
+      http = Net::HTTP.new(url.host, url.port)
+      http.use_ssl = true
+      http.verify_mode = OpenSSL::SSL::VERIFY_PEER
+      store = OpenSSL::X509::Store.new
+      store.set_default_paths
+      http.cert_store = store
+    
+      res = http.start { |http| http.request(req) }
+      res.body
+    end
     
     def build_xml(command_xml)
       "<ip_applications_API><api_version>1.0</api_version>
