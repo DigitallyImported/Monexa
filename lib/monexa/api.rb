@@ -1,16 +1,6 @@
-module Monexa
-  
+module Monexa  
   def self.ping
     api_request :ping
-  end
-  
-  def self.login_available?(login)
-    response = api_request :search_subscriber, :login_id => login
-    (response.data[:result_size].to_i === 0)
-  end
-  
-  def self.search_subscriber(params)
-    api_request :search_subscriber, params
   end
   
   def self.list_plans(type = 'full')

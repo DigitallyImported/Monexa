@@ -2,15 +2,13 @@ require 'rspec'
 require 'monexa'
 require 'pp'
 
-include Monexa
-
-describe Api, '#ping' do
+describe Monexa, '#ping' do
   it 'should pong' do
-    Api.ping.success?.should === true
+    Monexa.ping.success?.should === true
   end
 end
 
-describe Api, 'Account Methods' do
+describe Monexa, 'Account Methods' do
   before :all do
     @subscriber = nil
     @random_login = 'luser' + 5.times.map {rand(100)}.join('')
@@ -37,19 +35,19 @@ describe Api, 'Account Methods' do
   end
   
   it 'should not find a user that does not exist' do
-    response = Api.search_subscriber :login_id => @random_login
+    response = Monexa::Subscriber.search :login_id => @random_login
     response.success?.should === true
     response.data.include?(:result_size).should === true
     response.data[:result_size].to_i.should === 0
   end
 
   it 'should successfully create a new account' do
-    response = Api.create_subscriber @account_data
+    response = Monexa::Subscriber.create @account_data
     response.success?.should === true
   end
 
   it 'should find a user that does exist' do
-    response = Api.search_subscriber :login_id => @random_login
+    response = Monexa::Subscriber.search :login_id => @random_login
     response.success?.should === true
     response.data.include?(:result_size).should === true
     response.data[:result_size].to_i.should === 1
@@ -67,7 +65,7 @@ describe Api, 'Account Methods' do
       }
     }
     
-    response = Api.check_password request_data
+    response = Monexa::Subscriber.check_password request_data
     response.success?.should === true
   end
   
@@ -83,7 +81,7 @@ describe Api, 'Account Methods' do
       }
     }
       
-    response = Api.update_subscriber request_data
+    response = Monexa::Subscriber.update request_data
     response.success?.should === true
   end
 end

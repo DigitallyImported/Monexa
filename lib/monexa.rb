@@ -6,6 +6,6 @@ module Monexa
 end
 
 $:.unshift(File.dirname(__FILE__))
-%w[ version config log error request response api ].each do |file|
+%w[ version config log error request response api subscriber ].each do |file|
   require "monexa/#{file}"
 end
