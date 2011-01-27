@@ -1,0 +1,14 @@
+:subscriber_information:
+  :account_information:
+    :login_id:
+    :external_group_id:
+    :provider_id:
+    :password:
+    :office_id:
+    :plan:
+      :plan_id:
+  :contact_information:
+    :first_name:
+    :last_name:
+    :company:
+    :timezone:
