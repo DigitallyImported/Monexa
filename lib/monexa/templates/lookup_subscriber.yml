@@ -4,17 +4,20 @@
     :login_id:
     :external_group_id:
     :provider_id:
-    :password:
     :office_id:
+    :office_name:
     :plan:
       :plan_id:
+      :name:
       :plan_discount_type:
         :discount_type_id:
       :plan_service:
         :service_group:
           :service_group_id:
+          :description:
           :service:
             :service_id:
+            :description:
             :service_parameter:
               :service_parameter_attribute:
               :service_parameter_value:
@@ -54,20 +57,32 @@
     :contract_term:
     :currency:
     :price_book:
+      :internal_price_book_id:
       :price_book_id:
+      :price_book_name:
     :billed_up_to_date:
       :date: *date
     :overtime_billed_up_to_date:
       :date: *date
     :last_payment_attempt_date:
-      :date:*date
+        :date: *date
+    :last_payment_ammount:
+    :last_payment_date:
+          :date: *date
+    :number_failed_payment_attempts:
+    :current_balance:
+    :earliest_amount_owing_date:
+      :data: *date
     :tax1_exempt:
     :tax2_exempt:
     :setup_fee_applied_flag:
     :po_number:
     :collection_status:
     :credit_limit:
-    :contract_term:
+    :trial_balance:
+    :trial_balance_date:
+      :data: *date
+    :contract_minimum:
 
   :contact_information:
     :first_name:

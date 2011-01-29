@@ -1,5 +1,4 @@
 require 'logger'
-
 module Monexa
   class Log < Logger
     def format_message(severity, timestamp, progname, msg)
@@ -20,11 +19,10 @@ module Monexa
   end
   
   def self.log
-    init_log unless @log
-    @log
+    @log ||= init_log
   end
   
   def self.log=(log)
-    init_log(log)
+    init_log log
   end
 end

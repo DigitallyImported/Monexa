@@ -19,7 +19,7 @@ module Monexa
       end
       Monexa::log.debug "Request Args: #{(data.collect { |k, v| "#{k}=#{v}" }.join(','))}" if @data.length > 0
       
-      @xml = build_xml("<#{@command}>#{hash_to_xml(@data)}</#{@command}>")
+      @xml = build_xml("<#{@command}>#{Monexa::Util.hash_to_xml(@data)}</#{@command}>")
       Monexa::log.debug @xml
     end
     
@@ -30,22 +30,9 @@ module Monexa
     def send
       do_post(Monexa::config.url, @xml)
     end
-    
+
     private
-    
-    def reorder(orig, template)
-      new_h = {}
-      template.each { |k, v|
-        next unless orig.has_key? k
-        if v.kind_of? Hash
-          new_h[k] = reorder(orig[k], template[k])
-        else
-          new_h[k] = orig[k]
-        end
-      }
-      new_h
-    end
-    
+
     def do_post(api_url, data)
       Monexa::log.debug "POST to #{api_url}"
     
@@ -77,17 +64,21 @@ module Monexa
   		</ip_applications_API>"
     end
 
-    def hash_to_xml (h)
-      xml = ''
-      h.each do |k,v|
+    def reorder(orig, template)
+      new_h = {}
+      template.each { |k, v|
+        next unless orig.has_key? k
         if v.is_a? Hash
-          k = k.to_s.split('_').collect {|w| w.capitalize}.join('_')
-          xml << "<#{k}>\n#{hash_to_xml(v)}</#{k}>\n"
+          if orig[k].is_a? Array
+            new_h[k] = orig[k].collect { |group| reorder(group, template[k]) }
+          else
+            new_h[k] = reorder(orig[k], template[k])
+          end
         else
-          xml << "<#{k}>#{v}</#{k}>\n"
+          new_h[k] = orig[k]
         end
-      end
-      xml
+      }
+      new_h
     end
     
   end

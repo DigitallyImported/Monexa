@@ -14,9 +14,8 @@ Gem::Specification.new do |s|
   
   s.has_rdoc      = false
   s.require_path  = 'lib'
-  s.files         = Dir.glob("{lib,test}/**/*") + %w(README CHANGELOG Rakefile)
+  s.files         = Dir.glob("{lib,test}/**/*") + %w(README.md Rakefile)
   
   s.add_development_dependency 'rspec'
-  s.add_dependency 'curb'
   s.add_dependency 'libxml-ruby'
 end

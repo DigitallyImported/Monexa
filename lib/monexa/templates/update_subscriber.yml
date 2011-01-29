@@ -59,8 +59,7 @@
       :date: *date
     :overtime_billed_up_to_date:
       :date: *date
-    :last_payment_attempt_date:
-      :date:*date
+    :number_failed_payment_attempts:
     :tax1_exempt:
     :tax2_exempt:
     :setup_fee_applied_flag:
@@ -97,7 +96,6 @@
     :verification_question:
     :receive_provider_marketing:
     :receive_third_party_marketing:
-    :master_account_id:
     :referral:
     :custom_field_1:
     :custom_field_2:
