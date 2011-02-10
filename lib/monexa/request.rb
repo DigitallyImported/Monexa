@@ -8,7 +8,7 @@ module Monexa
     def initialize(command, data = {})
       @command = command.to_s.split('_').collect{|w| w.upcase}.join('_')
       Monexa::log.info "API request: #{@command}"
-
+      
       begin
         template = File.join(File.dirname(__FILE__), 'templates', "#{command.downcase}.yml")
         Monexa::log.debug "Loading request template #{template}"
@@ -17,7 +17,8 @@ module Monexa
         Monexa::log.debug 'Failed to load template.'
         @data = data
       end
-      Monexa::log.debug "Request Args: #{(data.collect { |k, v| "#{k}=#{v}" }.join(','))}" if @data.length > 0
+      
+      Monexa::log.debug "Request Args: #{(@data.collect { |k, v| "#{k}=#{v}" }.join(','))}" if @data.length > 0
       
       @xml = build_xml("<#{@command}>#{Monexa::Util.hash_to_xml(@data)}</#{@command}>")
       Monexa::log.debug @xml

@@ -46,6 +46,9 @@ module Monexa
     def self.search(data)
       Monexa::api_request :search_subscriber, data
     end
+    def self.lookup(data)
+      Monexa::api_request :lookup_subscriber, data
+    end
   end
   
   module SessionKey
