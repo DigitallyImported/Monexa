@@ -9,12 +9,14 @@ Changelog
 ---------
 
 **v0.2**
- - Added support for command templates using yaml format, hashes are automatically re-ordered based on template layout.
- - Implemented api requests using standard `net/https` lib, removed curb depedency.
- - Fixed Gemspec
+
+- Added support for command templates using yaml format, hashes are automatically re-ordered based on template layout.
+- Implemented api requests using standard `net/https` lib, removed curb depedency.
+- Fixed Gemspec
 
 **v0.1** 
- - Initial release, basic API access
+
+- Initial release, basic API access
 
 Setup
 -----

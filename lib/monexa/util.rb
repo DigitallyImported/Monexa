@@ -10,7 +10,7 @@ module Monexa
           (v.is_a?(Array) ? v : Array[v]).collect { |group| "#{"\t"*l}<#{k}>\n#{hash_to_xml(group, l+1)}#{"\t"*l}</#{k}>\n"}.join
         elsif v.is_a? Monexa::Flag
           k = k.to_s.split('_').collect{|w| w.upcase}.join('_')
-          "#{"\t"*l}<#{k}>#{hash_to_xml(v.value)}</#{k}>\n"
+          "#{"\t"*l}<#{k}>#{hash_to_xml(v.value),l+1}</#{k}>\n"
         else
           "#{"\t"*l}<#{k}>#{v}</#{k}>\n"
         end
