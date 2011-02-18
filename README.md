@@ -9,6 +9,7 @@ Changelog
 ---------
 
 **v0.3.0**
+
 - Added dry-run support, builds command but won't send to api
 - moved api modules into separate files autloaded via main api module
 - adding Subscriber helper methods
