@@ -13,23 +13,21 @@ describe Monexa, 'Account Methods' do
     @subscriber = nil
     @random_login = 'luser' + 5.times.map {rand(100)}.join('')
     @account_data = {
-      :subscriber_information => {
-        :account_information => {
-          :login_id => @random_login,
-          :external_group_id => 'test',
-          :provider_id => Monexa::config.provider_id,
-          :password => '12345',
-          :office_id => Monexa::config.office_id,
-          :plan => {
-            :plan_id => 'AudioAddict'
-          }
-        },
-        :contact_information => {
-          :first_name => 'Nick',
-          :last_name => 'Wilson',
-          :company => 'Nick Wilson',
-          :timezone => 'America/New_York'
+      :account_information => {
+        :login_id => @random_login,
+        :external_group_id => 'test',
+        :provider_id => Monexa::config.provider_id,
+        :password => '12345',
+        :office_id => Monexa::config.office_id,
+        :plan => {
+          :plan_id => 'AudioAddict'
         }
+      },
+      :contact_information => {
+        :first_name => 'Nick',
+        :last_name => 'Wilson',
+        :company => 'Nick Wilson',
+        :timezone => 'America/New_York'
       }
     }
   end
@@ -55,13 +53,11 @@ describe Monexa, 'Account Methods' do
 
   it 'should match the users password' do 
     request_data = {
-      :subscriber_information => {
-        :account_information => {
-          :login_id => @account_data[:subscriber_information][:account_information][:login_id],
-          :external_group_id => @account_data[:subscriber_information][:account_information][:external_group_id],
-          :provider_id => @account_data[:subscriber_information][:account_information][:provider_id],
-          :password => @account_data[:subscriber_information][:account_information][:password]
-        }
+      :account_information => {
+        :login_id => @account_data[:account_information][:login_id],
+        :external_group_id => @account_data[:account_information][:external_group_id],
+        :provider_id => @account_data[:account_information][:provider_id],
+        :password => @account_data[:account_information][:password]
       }
     }
     
@@ -71,13 +67,11 @@ describe Monexa, 'Account Methods' do
   
   it 'should delete a user' do
     request_data = {
-      :subscriber_information => {
-        :account_information => {
-          :login_id => @account_data[:subscriber_information][:account_information][:login_id],
-          :external_group_id => @account_data[:subscriber_information][:account_information][:external_group_id],
-          :provider_id => @account_data[:subscriber_information][:account_information][:provider_id],
-          :account_status => 'deleted'
-        }
+      :account_information => {
+        :login_id => @account_data[:account_information][:login_id],
+        :external_group_id => @account_data[:account_information][:external_group_id],
+        :provider_id => @account_data[:account_information][:provider_id],
+        :account_status => 'deleted'
       }
     }
       

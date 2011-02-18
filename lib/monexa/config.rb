@@ -14,12 +14,16 @@ module Monexa
     raise "Failed to locate configuration file '#{CONFIG_NAME}', place in 'config/' or '.'" unless File.readable?(path)
     Monexa::log.debug "Using configuration file '#{path}'"
     @config = OpenStruct.new(YAML.load_file(path)) unless @config
-    @config
+    set_defaults(@config)
+  end
+
+  def self.set_defaults(config)
+    config.dry_run ||= false
+    config
   end
 
   def self.config
-    init_config unless @config
-    @config
+    @config ||= init_config
   end
   
   def self.config=(config)

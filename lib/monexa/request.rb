@@ -36,19 +36,23 @@ module Monexa
 
     def do_post(api_url, data)
       Monexa::log.debug "POST to #{api_url}"
-    
+      
+      if Monexa::config.dry_run
+        Monexa::log.info 'Dry run enabled, not sending to API'
+        return
+      end
+      
       url = URI.parse(api_url)
-    
-      req = Net::HTTP::Post.new(url.path)
-      req.body = data
-    
       http = Net::HTTP.new(url.host, url.port)
       http.use_ssl = true
       http.verify_mode = OpenSSL::SSL::VERIFY_PEER
       store = OpenSSL::X509::Store.new
       store.set_default_paths
       http.cert_store = store
-    
+      
+      req = Net::HTTP::Post.new(url.path)
+      req.body = data
+      
       res = http.start { |http| http.request(req) }
       res.body
     end

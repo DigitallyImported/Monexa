@@ -12,8 +12,12 @@ module Monexa
     attr_reader :status, :data, :raw_xml
     
     def initialize(xml)
-      @raw_xml = xml
-      parse_response @raw_xml
+      if Monexa::config.dry_run
+        @status = {:code => '0000', :description => 'Dry Run, no response processed'}
+      else
+        @raw_xml = xml
+        parse_response @raw_xml
+      end
     end
     
     def success?
