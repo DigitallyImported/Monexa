@@ -41,39 +41,21 @@ module Monexa
     
     def parse_response(xml)
       Monexa::log.debug 'Parsing response xml...'
-      response = {}
       parser = XML::Parser.string xml
       parser.context.options = XML::Parser::Options::NOBLANKS | XML::Parser::Options::NOERROR |
                                XML::Parser::Options::RECOVER | XML::Parser::Options::NOWARNING
-                                
-      parser.parse.find('//Response').each do |node|
-        response = xml_node_to_hash(node)
-      end
       
+      response = xml_node_to_hash(parser.parse.find('//Response')[0])
       raise ResponseError.new 'Invalid response from server' unless response and response.include? :status
-      
       Monexa::log.info "Response status: #{response[:status][:description]} (#{response[:status][:code]})"
+      Monexa::log.debug response
       
-      response.each do |k, v|
-        if k == :data
-          v.each do |command, data|
-            @command = command
-            @data = data
-            #data.each do |dk, dv|
-            #  instance_variable_set("@#{dk}", dv)
-            #  instance_eval("class << self; attr_accessor :#{dk}; end")
-            #end
-          end
-        else
-          instance_variable_set("@#{k}", v)
-          instance_eval("class << self; attr_accessor :#{k}; end")
-        end
-      end
+      @status = response[:status]
+      @data   = response[:data].values[0] if response.has_key? :data
     end
     
     def xml_node_to_hash(node)
       result = {}
-
       if node.element? && node.children? && node.children[0].element?
         node.children.each do |child|
           sym_name = child.name.downcase.sub('response_', '').to_sym
